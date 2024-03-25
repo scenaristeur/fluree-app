@@ -39,7 +39,7 @@ const mutations = {
 
 const actions = {
   async createThing(context, thing) {
-    thing.create = Date.now()
+    thing.created = Date.now()
 
     const client = await new FlureeClient({
       host: 'localhost',
@@ -50,7 +50,8 @@ const actions = {
     //  console.log(createdClient)
  console.log(client)
 const transactionInstance = client.transact({
-  insert: { '@id': 'freddy', name: 'Freddy' },
+  //insert: { '@id': 'freddy', name: 'Freddy' },
+  insert: thing
 });
 
 const response = await transactionInstance.send();
@@ -60,6 +61,27 @@ const response = await transactionInstance.send();
     
     // const response = await transactionInstance.send();
     console.log(response);
+
+
+    const queryInstance = client.query({
+      //select: { freddy: ['*'] },
+      //select: { "?s": ["*"]},
+      
+        "select": {
+          "?s": ["*"]
+        },
+        "where": {
+          "@id": "?s",
+         // "bestFriend": "?friend"
+        }
+      
+    });
+    
+    const response1 = await queryInstance.send();
+    console.log("select", response1);
+
+
+
   }
   //   async publishStory(context, storyName) {
   //     let { story, images } = context.state.story.getClean(storyName)

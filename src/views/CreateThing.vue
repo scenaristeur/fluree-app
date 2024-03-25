@@ -5,8 +5,9 @@
             <span class="input-group-text" id="basic-addon1">name</span>
             <input type="text" class="form-control" v-model="thing.name" placeholder="ex: Mon idée" aria-label="thing"
                 aria-describedby="basic-addon1" @keyup.enter="create()">
+                <button v-on:click="create()" type="button" class="btn btn-success">create</button>
         </div>
-        <button v-on:click="create()" type="button" class="btn btn-success">create</button>
+  
     </div>
 </template>
 
